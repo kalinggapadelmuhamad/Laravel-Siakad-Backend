@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no"
         name="viewport">
-    <title>Login &mdash; Stisla</title>
+    <title>Login - Siakad Backend</title>
 
     <!-- General CSS Files -->
     <link rel="stylesheet"
@@ -31,32 +31,35 @@
     <div id="app">
         <section class="section">
             <div class="d-flex align-items-stretch flex-wrap">
-                <div class="col-lg-4 col-md-6 col-12 order-lg-1 min-vh-100 order-2 bg-white">
+                <div class="col-lg-4 col-12 order-lg-1 min-vh-100 order-2 bg-white">
                     <div class="m-3 p-4">
                         <img src="{{ asset('img/stisla-fill.svg') }}"
                             alt="logo"
                             width="80"
                             class="shadow-light rounded-circle mb-5 mt-2">
-                        <h4 class="text-dark font-weight-normal">Welcome to <span class="font-weight-bold">Stisla</span>
+                        <h4 class="text-dark font-weight-normal">Welcome to <span class="font-weight-bold">Siakad Backend</span>
                         </h4>
                         <p class="text-muted">Before you get started, you must login or register if you don't already
                             have an account.</p>
                         <form method="POST"
-                            action="#"
+                            action="{{ route('login') }}"
                             class="needs-validation"
                             novalidate="">
+                            @csrf
                             <div class="form-group">
                                 <label for="email">Email</label>
                                 <input id="email"
                                     type="email"
-                                    class="form-control"
+                                    class="form-control @error('email') is-invalid
+                                    @enderror"
                                     name="email"
                                     tabindex="1"
-                                    required
                                     autofocus>
-                                <div class="invalid-feedback">
-                                    Please fill in your email
-                                </div>
+                                    @error('email')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                    @enderror
                             </div>
 
                             <div class="form-group">
@@ -66,29 +69,20 @@
                                 </div>
                                 <input id="password"
                                     type="password"
-                                    class="form-control"
+                                    class="form-control @error('password') is-invalid
+
+                                    @enderror"
                                     name="password"
                                     tabindex="2"
-                                    required>
-                                <div class="invalid-feedback">
-                                    please fill in your password
-                                </div>
+                                    >
+                                    @error('password')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                    @enderror
                             </div>
-
-                            <div class="form-group">
-                                <div class="custom-control custom-checkbox">
-                                    <input type="checkbox"
-                                        name="remember"
-                                        class="custom-control-input"
-                                        tabindex="3"
-                                        id="remember-me">
-                                    <label class="custom-control-label"
-                                        for="remember-me">Remember Me</label>
-                                </div>
-                            </div>
-
                             <div class="form-group text-right">
-                                <a href="{{ route('forgot')}}"
+                                <a href="{{ route('password.request')}}"
                                     class="float-left mt-3">
                                     Forgot Password?
                                 </a>
@@ -100,21 +94,16 @@
                             </div>
 
                             <div class="mt-5 text-center">
-                                Don't have an account? <a href="{{ route('resgiter')}}">Create new one</a>
+                                Don't have an account? <a href="{{ route('register')}}">Create new one</a>
                             </div>
                         </form>
 
                         <div class="text-small mt-5 text-center">
-                            Copyright &copy; Your Company. Made with 💙 by Stisla
-                            <div class="mt-2">
-                                <a href="#">Privacy Policy</a>
-                                <div class="bullet"></div>
-                                <a href="#">Terms of Service</a>
-                            </div>
+                            Copyright &copy; FIC8. Made with 💙 by Stisla
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-8 col-12 order-lg-2 min-vh-100 background-walk-y position-relative overlay-gradient-bottom order-1"
+                <div class="col-lg-8 col-12 order-lg-2 min-vh-100 background-walk-y position-relative overlay-gradient-bottom order-1 d-none d-lg-block"
                     data-background="{{ asset('img/unsplash/login-bg.jpg') }}">
                     <div class="absolute-bottom-left index-2">
                         <div class="text-light p-5 pb-2">
