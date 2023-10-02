@@ -12,9 +12,8 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-
+// Route::redirect('/', 'login');
 Route::middleware(['auth'])->group(function () {
-    Route::redirect('/', 'login');
     Route::get('/home', function () {
         return view('pages.app.dashboard.dashboard-siakad-dashboard', ['type_menu' => '']);
     })->name('home');
