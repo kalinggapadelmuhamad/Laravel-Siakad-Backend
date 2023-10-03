@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no"
         name="viewport">
-    <title>@yield('title') &mdash; Stisla</title>
+    <title>@yield('title') - Siakad Backend</title>
 
     <!-- General CSS Files -->
     <link rel="stylesheet"
@@ -15,6 +15,7 @@
         integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
         crossorigin="anonymous"
         referrerpolicy="no-referrer" />
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 
     @stack('style')
 
@@ -41,7 +42,7 @@
 </head>
 </head>
 
-<body>
+<body class="sidebar-mini">
     <div id="app">
         <div class="main-wrapper">
             <!-- Header -->
