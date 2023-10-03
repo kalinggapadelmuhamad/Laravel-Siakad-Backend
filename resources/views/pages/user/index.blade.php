@@ -20,17 +20,20 @@
                 </div>
             </div>
             <div class="section-body">
+                <div class="row">
+                    <div class="col-12">
+                        @include('layouts.alert')
+                    </div>
+                </div>
                 <div class="row mt-4">
                     <div class="col-12">
                         <div class="card">
-                            {{-- <div class="card-header">
-                            </div> --}}
                             <div class="card-body">
                                 <div class="float-left">
-                                    <a href="" class="btn btn-primary">New User</a>
+                                    <a href="{{ route('user.create') }}" class="btn btn-primary">New User</a>
                                 </div>
                                 <div class="float-right">
-                                    <form action="{{ route('index') }}" method="GET">
+                                    <form action="{{ route('user.index') }}" method="GET">
                                         <div class="input-group">
                                             <input type="text"
                                                 class="form-control"

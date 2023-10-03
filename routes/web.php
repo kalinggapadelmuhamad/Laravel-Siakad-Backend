@@ -23,9 +23,9 @@ Route::middleware(['auth'])->group(function () {
     })->name('home');
 
     // User Route List
-    Route::prefix('/user')->group(function (){
-        Route::resource('/', UserController::class);
-    });
+    Route::resource('/user', UserController::class);
+
+    // });
 });
 
 
