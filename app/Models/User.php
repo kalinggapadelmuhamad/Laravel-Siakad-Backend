@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use Mockery\Matcher\Subset;
 
 class User extends Authenticatable
 {
@@ -45,4 +46,12 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    public function Subject(){
+        return $this->hasMany(Subject::class);
+    }
+
+    public function Schedule(){
+        return $this->hasMany(Schedule::class);
+    }
 }
