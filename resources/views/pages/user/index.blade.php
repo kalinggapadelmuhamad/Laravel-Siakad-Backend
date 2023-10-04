@@ -20,17 +20,20 @@
                 </div>
             </div>
             <div class="section-body">
-                <div class="row mt-4">
+                <div class="row">
+                    <div class="col-12">
+                        @include('layouts.alert')
+                    </div>
+                </div>
+                <div class="row">
                     <div class="col-12">
                         <div class="card">
-                            {{-- <div class="card-header">
-                            </div> --}}
                             <div class="card-body">
                                 <div class="float-left">
-                                    <a href="" class="btn btn-primary">New User</a>
+                                    <a href="{{ route('user.create') }}" class="btn btn-primary">New User</a>
                                 </div>
                                 <div class="float-right">
-                                    <form action="{{ route('index') }}" method="GET">
+                                    <form action="{{ route('user.index') }}" method="GET">
                                         <div class="input-group">
                                             <input type="text"
                                                 class="form-control"
@@ -49,12 +52,12 @@
                                 <div class="table-responsive">
                                     <table class="table-striped table">
                                         <tr>
-                                            <th>No</th>
+                                            <th style="width: 3%">No</th>
                                             <th>Name</th>
                                             <th>Email</th>
                                             <th>Phone</th>
                                             <th>Created At</th>
-                                            <th>Action</th>
+                                            <th style="width: 5%" class="text-center">Action</th>
                                         </tr>
                                         @foreach ($users as $index => $user)
                                         <tr>
@@ -71,10 +74,19 @@
                                                 {{ $user->phone }}
                                             </td>
                                             <td>
-                                                {{ $user->created_at->format('d-m-Y') }}
+                                                {{ $user->created_at->format('d-F-Y') }}
                                             </td>
                                             <td>
-                                                <div class="badge badge-primary">Published</div>
+                                                <div class="d-flex justify-content-center">
+                                                    <a href="{{ route('user.edit', $user) }}" class="btn btn-sm btn-icon btn-primary m-1"><i class="fas fa-user-pen"></i></a>
+                                                    <form action="{{ route('user.destroy', $user) }}" method="post">
+                                                        @csrf
+                                                        @method('delete')
+                                                        <button class="btn btn-sm btn-danger btn-icon m-1">
+                                                            <i class="fas fa-trash"></i>
+                                                        </button>
+                                                    </form>
+                                                </div>
                                             </td>
                                         @endforeach
                                         </tr>
