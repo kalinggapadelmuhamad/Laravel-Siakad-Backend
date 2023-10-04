@@ -3,10 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreUserRequest;
+use App\Http\Requests\UpdateUserRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Redis;
 
 class UserController extends Controller
 {
@@ -19,7 +21,9 @@ class UserController extends Controller
         $keyword = $request->input('name');
         $users = User::when($request->input('name'), function ($query, $name) {
             $query->where('name', 'like', '%' . $name . '%');
-        })->paginate(10);
+        })
+        ->orderBy('id', 'DESC')
+        ->paginate(10);
 
         $users->appends(['name' => $keyword]);
 
@@ -63,18 +67,34 @@ class UserController extends Controller
     }
 
     /**
+     * Display a form edit user.
+     */
+    public function edit(User $user)
+    {
+        $type_menu = 'user';
+        return view('pages.user.edit', compact('type_menu', 'user'));
+
+    }
+
+
+    /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(UpdateUserRequest $request, User $user)
     {
-        //
+        $type_menu = 'user';
+        $validate = $request->validated();
+        $user->update($validate);
+
+        return Redirect::route('user.index')->with('success', 'User has been successfully updated.');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(User $user)
     {
-        //
+        $user->delete();
+        return Redirect::route('user.index')->with('success', 'User has been successfully delete.');
     }
 }

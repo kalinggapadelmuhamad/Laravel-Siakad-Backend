@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'New User')
+@section('title', 'Edit User')
 
 @push('style')
     <!-- CSS Libraries -->
@@ -10,11 +10,11 @@
     <div class="main-content">
         <section class="section">
             <div class="section-header">
-                <h1>New User</h1>
+                <h1>Edit User</h1>
                 <div class="section-header-breadcrumb">
                     <div class="breadcrumb-item active"><a href="#">Dashboard</a></div>
                     <div class="breadcrumb-item"><a href="#">Users</a></div>
-                    <div class="breadcrumb-item">New User</div>
+                    <div class="breadcrumb-item">Edit User</div>
                 </div>
             </div>
 
@@ -22,8 +22,9 @@
                 <div class="row">
                     <div class="col-12 col-md-12 col-lg-12">
                         <div class="card">
-                            <form action="{{ route('user.store') }}" method="POST">
+                            <form action="{{ route('user.update', $user) }}" method="POST">
                                 @csrf
+                                @method('PUT')
                                 <div class="card-body">
                                     <div class="form-group">
                                         <label>Name</label>
@@ -33,7 +34,8 @@
                                                 is-invalid
                                             @enderror"
                                             required=""
-                                            name="name">
+                                            name="name"
+                                            value="{{ $user->name }}">
                                             @error('name')
                                             <div class="invalid-feedback">
                                                 {{ $message }}
@@ -48,7 +50,8 @@
                                                 is-invalid
                                             @enderror"
                                             required=""
-                                            name="email">
+                                            name="email"
+                                            value="{{ $user->email }}">
                                             @error('email')
                                             <div class="invalid-feedback">
                                                 {{ $message }}
@@ -62,7 +65,6 @@
                                             @error('password')
                                                 is-invalid
                                             @enderror"
-                                            required=""
                                             name="password">
                                             @error('password')
                                             <div class="invalid-feedback">
@@ -78,7 +80,8 @@
                                                 is-invalid
                                             @enderror"
                                             required=""
-                                            name="phone">
+                                            name="phone"
+                                            value="{{ $user->phone }}">
                                             @error('phone')
                                             <div class="invalid-feedback">
                                                 {{ $message }}
@@ -93,7 +96,7 @@
                                                     name="roles"
                                                     value="admin"
                                                     class="selectgroup-input"
-                                                    checked=""
+                                                    {{ ($user->roles == 'admin') ? 'checked' : '' }}
                                                 >
                                                 <span class="selectgroup-button">Admin</span>
                                             </label>
@@ -101,14 +104,16 @@
                                                 <input type="radio"
                                                     name="roles"
                                                     value="dosen"
-                                                    class="selectgroup-input">
+                                                    class="selectgroup-input"
+                                                    {{ ($user->roles == 'dosen') ? 'checked' : '' }}>
                                                 <span class="selectgroup-button">Dosen</span>
                                             </label>
                                             <label class="selectgroup-item">
                                                 <input type="radio"
                                                     name="roles"
                                                     value="mahasiswa"
-                                                    class="selectgroup-input">
+                                                    class="selectgroup-input"
+                                                    {{ ($user->roles == 'mahasiswa') ? 'checked' : '' }}>
                                                 <span class="selectgroup-button">Mahasiswa</span>
                                             </label>
                                         </div>
@@ -122,7 +127,9 @@
                                             @enderror"
                                             data-height="150"
                                             required=""
-                                            name="address"></textarea>
+                                            name="address">
+                                            {{ $user->address }}
+                                        </textarea>
                                             @error('address')
                                             <div class="invalid-feedback">
                                                 {{ $message }}
